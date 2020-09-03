@@ -19,7 +19,7 @@ export default function (props) {
   const [latitude, setLatitude] = useState(String(0.0));
   const [longitude, setLongitude] = useState(String(0.0));
   const [timezone, setTimezone] = useState(
-    String(new Date().getTimezoneOffset() / 60),
+    String((0 - new Date().getTimezoneOffset()) / 60),
   );
   return (
     <ScrollView style={styles.view}>
