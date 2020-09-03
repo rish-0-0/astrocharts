@@ -6,6 +6,7 @@ import {
   Platform,
   StyleSheet,
   Dimensions,
+  TextInput,
 } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
@@ -15,9 +16,13 @@ export default function (props) {
   const [show, setShow] = useState(false);
   const [mode, setMode] = useState('date');
   const [date, setDate] = useState(new Date());
+  const [latitude, setLatitude] = useState(0.0);
+  const [longitude, setLongitude] = useState(0.0);
+  const [timezone, setTimezone] = useState(date.getTimezoneOffset() / 60);
   return (
     <ScrollView style={styles.view}>
-      <Text>Birth Date</Text>
+      <Text style={styles.labels}>Birth Date</Text>
+      <Text>{date.toDateString()}</Text>
       <Button
         onPress={() => {
           setShow(true);
@@ -25,13 +30,64 @@ export default function (props) {
         }}
         title="Open Date Picker"
       />
-      <Text>Birth Time</Text>
+      <Text style={styles.labels}>Birth Time</Text>
+      <Text>
+        {date.getHours() < 10 ? `0${date.getHours()}` : date.getHours()}:
+        {date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes()}
+      </Text>
       <Button
         onPress={() => {
           setShow(true);
           setMode('time');
         }}
         title="Open Time Picker"
+      />
+      <Text style={styles.labels}>Latitude</Text>
+      <TextInput
+        keyboardType="decimal-pad"
+        onChangeText={(t) => setLatitude(t)}
+        maxLength={6}
+      />
+      <Text style={styles.labels}>Longitude</Text>
+      <TextInput
+        keyboardType="decimal-pad"
+        onChangeText={(t) => setLongitude(t)}
+        maxLength={6}
+      />
+      <Text style={styles.labels}>Timezone</Text>
+      <TextInput
+        keyboardType="decimal-pad"
+        onChangeText={(t) => setTimezone(t)}
+        maxLength={5}
+        value={timezone}
+      />
+      <Button
+        onPress={() =>
+          props.navigation.navigate('Charts', {
+            dateString: `${date.getFullYear()}-${
+              date.getMonth() + 1 < 10
+                ? '0' + String(date.getMonth() + 1)
+                : date.getMonth() + 1
+            }-${
+              date.getDate() < 10
+                ? '0' + String(date.getDate())
+                : date.getDate()
+            }`,
+            timeString: `${
+              date.getHours() < 10
+                ? '0' + String(date.getHours())
+                : date.getHours()
+            }:${
+              date.getMinutes() < 10
+                ? '0' + String(date.getMinutes())
+                : date.getMinutes()
+            }:00`,
+            lat: latitude,
+            lng: longitude,
+            timezone: timezone,
+          })
+        }
+        title="Generate Charts!"
       />
       {show && (
         <DateTimePicker
@@ -53,5 +109,8 @@ const styles = StyleSheet.create({
   view: {
     ...StyleSheet.absoluteFillObject,
     minHeight: height,
+  },
+  labels: {
+    textAlign: 'center',
   },
 });

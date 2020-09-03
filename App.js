@@ -11,6 +11,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {enableScreens} from 'react-native-screens';
 import {createNativeStackNavigator} from 'react-native-screens/native-stack';
 import Chart from './screens/Chart';
+import ViewChart from './screens/Chart/ViewChart';
 
 enableScreens();
 const Stack = createNativeStackNavigator();
@@ -20,7 +21,8 @@ const App = () => {
     <>
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="Chart" component={Chart} />
+          <Stack.Screen name="Birth Details" component={Chart} />
+          <Stack.Screen name="Charts" component={ViewChart} />
         </Stack.Navigator>
       </NavigationContainer>
     </>
