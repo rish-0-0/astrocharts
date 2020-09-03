@@ -16,17 +16,19 @@ export default function (props) {
   const [show, setShow] = useState(false);
   const [mode, setMode] = useState('date');
   const [date, setDate] = useState(new Date());
-  const [latitude, setLatitude] = useState(0.0);
-  const [longitude, setLongitude] = useState(0.0);
-  const [timezone, setTimezone] = useState(date.getTimezoneOffset() / 60);
+  const [latitude, setLatitude] = useState(String(0.0));
+  const [longitude, setLongitude] = useState(String(0.0));
+  const [timezone, setTimezone] = useState(
+    String(new Date().getTimezoneOffset() / 60),
+  );
   return (
     <ScrollView style={styles.view}>
       <Text style={styles.labels}>Birth Date</Text>
       <Text>{date.toDateString()}</Text>
       <Button
         onPress={() => {
-          setShow(true);
           setMode('date');
+          setShow(true);
         }}
         title="Open Date Picker"
       />
@@ -37,8 +39,8 @@ export default function (props) {
       </Text>
       <Button
         onPress={() => {
-          setShow(true);
           setMode('time');
+          setShow(true);
         }}
         title="Open Time Picker"
       />
@@ -96,8 +98,8 @@ export default function (props) {
           is24Hour={true}
           display="spinner"
           onChange={(ev, val) => {
-            setDate(val);
             setShow(false);
+            setDate(val || new Date());
           }}
         />
       )}
