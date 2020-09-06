@@ -25,6 +25,7 @@ export default function ({style, onPress, grahas, rashi, ...rest}) {
 const styles = StyleSheet.create({
   label: {
     textAlign: 'center',
+    fontWeight: 'bold',
   },
   container: {
     width: '100%',

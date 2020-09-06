@@ -9,6 +9,7 @@ import {
 import db from '../../config/mongodb';
 import API from '../../config/axios';
 import ChartSection from '../../components/ChartSection';
+import {RASHIS} from '../../config/constants';
 // import astroreha from 'astroreha';
 // const astroreha = require('astroreha');
 
@@ -19,70 +20,79 @@ function ChartView({birthChart}) {
         <ChartSection
           grahas={birthChart.pisces.signs}
           rashi="Pisces"
-          style={{backgroundColor: 'lavender', flex: 1}}
+          onPress={() => {}}
+          style={{backgroundColor: 'turquoise', flex: 1}}
         />
         <ChartSection
           grahas={birthChart.aries.signs}
           rashi="Aries"
-          style={{backgroundColor: 'indianred', flex: 1}}
+          style={{backgroundColor: 'lightcoral', flex: 1}}
         />
         <ChartSection
           grahas={birthChart.taurus.signs}
           rashi="Taurus"
-          style={{backgroundColor: 'navy', flex: 1}}
+          style={{backgroundColor: 'gold', flex: 1}}
         />
         <ChartSection
           grahas={birthChart.gemini.signs}
           rashi="Gemini"
-          style={{backgroundColor: 'palevioletred', flex: 1}}
+          style={{backgroundColor: 'yellow', flex: 1}}
         />
       </View>
       <View style={styles.bcr}>
         <ChartSection
           grahas={birthChart.aquarius.signs}
           rashi="Aquarius"
-          style={{backgroundColor: 'cyan', flex: 1}}
+          style={{backgroundColor: 'aqua', flex: 1}}
         />
-        <View style={{flex: 2, minHeight: 80}}></View>
+        <View style={{flex: 2, minHeight: 80}}>
+          <Text style={styles.inchartheading}>Chart Rashi</Text>
+          <Text style={styles.inchart}>{RASHIS[birthChart.meta.Mo.rashi]}</Text>
+        </View>
         <ChartSection
           grahas={birthChart.cancer.signs}
           rashi="Cancer"
-          style={{backgroundColor: 'plum', flex: 1}}
+          style={{backgroundColor: 'lightgreen', flex: 1}}
         />
       </View>
       <View style={styles.bcr}>
         <ChartSection
           grahas={birthChart.capricorn.signs}
           rashi="Capricorn"
-          style={{backgroundColor: 'turquoise', flex: 1}}
+          style={{backgroundColor: 'mediumslateblue', flex: 1}}
         />
-        <View style={{flex: 2, minHeight: 80}}></View>
+        <View style={{flex: 2, minHeight: 80}}>
+          <Text style={styles.inchartheading}>Chart Nakshatra</Text>
+          <Text style={styles.inchart}>
+            {birthChart.meta.Mo.nakshatra.name}
+          </Text>
+        </View>
         <ChartSection
           grahas={birthChart.leo.signs}
           rashi="Leo"
-          style={{backgroundColor: 'sandybrown', flex: 1}}
+          style={{backgroundColor: 'coral', flex: 1}}
         />
       </View>
       <View style={styles.bcr}>
         <ChartSection
           grahas={birthChart.sagittarius.signs}
           rashi="Sagittarius"
-          style={{backgroundColor: 'gold', flex: 1}}
+          style={{backgroundColor: 'orangered', flex: 1}}
         />
         <ChartSection
           grahas={birthChart.scorpio.signs}
           rashi="Scorpio"
-          style={{backgroundColor: 'darkcyan', flex: 1}}
+          style={{backgroundColor: 'greenyellow', flex: 1}}
         />
         <ChartSection
           grahas={birthChart.libra.signs}
           rashi="Libra"
-          style={{backgroundColor: 'dodgerblue', flex: 1}}
+          style={{backgroundColor: 'lightskyblue', flex: 1}}
         />
         <ChartSection
           grahas={birthChart.virgo.signs}
           rashi="Virgo"
-          style={{backgroundColor: 'fuchsia', flex: 1}}
+          style={{backgroundColor: 'plum', flex: 1}}
         />
       </View>
     </>
@@ -171,7 +181,7 @@ export default function ({navigation, route}) {
   }, [birthChart, navamsaChart, houses, nakshatra]);
   return (
     <ScrollView>
-      <Text>Birth Chart</Text>
+      <Text style={styles.headings}>Birth Chart</Text>
       {/* <ActivityIndicator
         animating={true}
         size="large"
@@ -182,7 +192,7 @@ export default function ({navigation, route}) {
         }}
       /> */}
       {!loading && ready && <ChartView birthChart={birthChart} />}
-      <Text>Navamsa Chart</Text>
+      <Text style={styles.headings}>Navamsa Chart</Text>
       {!loading && ready && <ChartView birthChart={navamsaChart} />}
     </ScrollView>
   );
@@ -192,5 +202,26 @@ const styles = StyleSheet.create({
   bcr: {
     display: 'flex',
     flexDirection: 'row',
+  },
+  headings: {
+    textAlign: 'center',
+    padding: 18,
+    fontSize: 24,
+    lineHeight: 24,
+    textTransform: 'uppercase',
+    letterSpacing: 3.5,
+  },
+  inchart: {
+    textTransform: 'capitalize',
+    textAlign: 'center',
+    fontWeight: 'bold',
+    letterSpacing: 0.5,
+  },
+  inchartheading: {
+    textAlign: 'center',
+    padding: 4,
+    lineHeight: 18,
+    fontSize: 16,
+    letterSpacing: 1.5,
   },
 });

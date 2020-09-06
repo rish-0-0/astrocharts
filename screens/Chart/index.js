@@ -92,6 +92,7 @@ export default function (props) {
           })
         }
         title="Generate Charts!"
+        color="#000"
       />
       {show && (
         <DateTimePicker
@@ -111,10 +112,15 @@ export default function (props) {
 
 const styles = StyleSheet.create({
   view: {
-    ...StyleSheet.absoluteFillObject,
-    minHeight: height,
+    // ...StyleSheet.absoluteFillObject,
+    // minHeight: height,
   },
   labels: {
     textAlign: 'center',
+    padding: 18,
+    fontSize: 24,
+    lineHeight: 24,
+    textTransform: 'uppercase',
+    letterSpacing: 3.5,
   },
 });
