@@ -49,12 +49,14 @@ export default function (props) {
         keyboardType="decimal-pad"
         onChangeText={(t) => setLatitude(t)}
         maxLength={6}
+        value={latitude}
       />
       <Text style={styles.labels}>Longitude</Text>
       <TextInput
         keyboardType="decimal-pad"
         onChangeText={(t) => setLongitude(t)}
         maxLength={6}
+        value={longitude}
       />
       <Text style={styles.labels}>Timezone</Text>
       <TextInput
