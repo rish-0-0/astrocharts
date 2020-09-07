@@ -11,8 +11,8 @@ export default function ({style, onPress, grahas, rashi, ...rest}) {
         <Text style={styles.label}>{rashi}</Text>
         <View style={{...styles.flexContainer}}>
           {Array.isArray(grahas) &&
-            grahas.map(({graha}) => (
-              <View style={styles.flexItem}>
+            grahas.map(({graha}, index) => (
+              <View style={styles.flexItem} key={`${rashi}-${graha}-${index}`}>
                 <Text style={styles.flexItemContent}>{graha}</Text>
               </View>
             ))}
