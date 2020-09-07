@@ -78,7 +78,8 @@ import com.android.build.OutputFile
  */
 
 project.ext.react = [
-    enableHermes: false,  // clean and rebuild if changing
+    entryFile: "index.js",
+    enableHermes: true,  // clean and rebuild if changing
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
@@ -96,7 +97,7 @@ def enableSeparateBuildPerCPUArchitecture = false
 /**
  * Run Proguard to shrink the Java bytecode in release builds.
  */
-def enableProguardInReleaseBuilds = false
+def enableProguardInReleaseBuilds = true
 
 /**
  * The preferred build flavor of JavaScriptCore.
@@ -149,6 +150,13 @@ android {
             storePassword 'android'
             keyAlias 'androiddebugkey'
             keyPassword 'android'
+        }
+
+        release {
+          storeFile file(ASTROCHARTS_KEYSTORE_NAME)
+          storePassword ASTROCHARTS_KEYSTORE_PASSWORD
+          keyAlias ASTROCHARTS_KEY_ALIAS
+          keyPassword ASTROCHARTS_KEY_ALIAS_PASSWORD
         }
     }
     buildTypes {
