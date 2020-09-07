@@ -102,6 +102,12 @@ export default function (props) {
       />
 
       <Text style={styles.labels}>Timezone</Text>
+      <Text style={styles.examples}>
+        eg: 5.5 which implies GMT+5:30
+      </Text>
+      <Text style={styles.examples}>
+        eg: -5 which implies GMT-5:00
+      </Text>
       <TextInput
         keyboardType="decimal-pad"
         onChangeText={(t) => setTimezone(t)}
