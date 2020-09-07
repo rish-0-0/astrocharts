@@ -74,7 +74,7 @@ export default function (props) {
       />
       <Text style={styles.labels}>Latitude</Text>
       <Text style={styles.examples}>
-        eg: 12.926 whic implies 12.926{'\u00B0N'}
+        eg: 12.926 which implies 12.926{'\u00B0N'}
       </Text>
       <Text style={styles.examples}>
         eg: -33.868 which implies 33.868{'\u00B0S'}
