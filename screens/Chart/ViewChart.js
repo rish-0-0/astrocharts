@@ -186,13 +186,18 @@ export default function ({navigation, route}) {
         animating={true}
         size="large"
         style={{
+          position: 'absolute',
+          top: '50%',
+          left: '45%',
           opacity: loading ? 1 : 0,
           alignItems: 'center',
           justifyContent: 'center',
         }}
       /> */}
+      {loading && <Text style={styles.loading}>Calculating...</Text>}
       {!loading && ready && <ChartView birthChart={birthChart} />}
       <Text style={styles.headings}>Navamsa Chart</Text>
+      {loading && <Text style={styles.loading}>Calculating...</Text>}
       {!loading && ready && <ChartView birthChart={navamsaChart} />}
     </ScrollView>
   );
@@ -223,5 +228,13 @@ const styles = StyleSheet.create({
     lineHeight: 18,
     fontSize: 16,
     letterSpacing: 1.5,
+  },
+  loading: {
+    textAlign: 'center',
+    padding: 18,
+    fontSize: 18,
+    lineHeight: 18,
+    textTransform: 'uppercase',
+    letterSpacing: 3.5,
   },
 });
