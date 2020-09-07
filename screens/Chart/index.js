@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
     letterSpacing: 3.5,
   },
   examples: {
-    color: '#ddd',
+    color: 'gray',
     textAlign: 'center',
     lineHeight: 14,
     fontSize: 14,
