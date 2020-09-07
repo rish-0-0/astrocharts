@@ -170,5 +170,8 @@ const styles = StyleSheet.create({
   examples: {
     color: '#ddd',
     textAlign: 'center',
+    lineHeight: 14,
+    fontSize: 14,
+    letterSpacing: 0.2,
   },
 });
