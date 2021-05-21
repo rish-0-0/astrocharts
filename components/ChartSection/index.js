@@ -4,7 +4,7 @@ import {TouchableOpacity, Text, StyleSheet, View} from 'react-native';
 export default function ({style, onPress, grahas, rashi, ...rest}) {
   return (
     <TouchableOpacity
-      style={{...style, minHeight: rest.height || 80}}
+      style={{...style, minHeight: rest.height || 80, ...styles.touchable}}
       onPress={onPress}>
       <View
         style={{...styles.container, backgroundColor: style.backgroundColor}}>
@@ -23,6 +23,7 @@ export default function ({style, onPress, grahas, rashi, ...rest}) {
 }
 
 const styles = StyleSheet.create({
+  touchable: {},
   label: {
     textAlign: 'center',
     fontWeight: 'bold',
@@ -33,12 +34,12 @@ const styles = StyleSheet.create({
   flexContainer: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
     flexWrap: 'wrap',
   },
   flexItem: {
-    flex: 1,
+    // flex: 1,
   },
   flexItemContent: {
     textAlign: 'center',

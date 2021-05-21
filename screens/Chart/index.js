@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {
   ScrollView,
   Text,
-  Platform,
   StyleSheet,
   Dimensions,
   TextInput,

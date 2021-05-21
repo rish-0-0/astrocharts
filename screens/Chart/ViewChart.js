@@ -1,17 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {
-  ScrollView,
-  Text,
-  ActivityIndicator,
-  View,
-  StyleSheet,
-} from 'react-native';
+import {ScrollView, Text, View, StyleSheet} from 'react-native';
 import db from '../../config/mongodb';
 import API from '../../config/axios';
 import ChartSection from '../../components/ChartSection';
 import {RASHIS} from '../../config/constants';
-// import astroreha from 'astroreha';
-// const astroreha = require('astroreha');
 
 function ChartView({birthChart}) {
   return (
@@ -117,10 +109,15 @@ export default function ({navigation, route}) {
           setError('Internal Error');
         } else {
           if (docs.length) {
-            const {birthChart: birth, navamsa, houses, nakshatra} = docs[0];
+            const {
+              birthChart: birth,
+              navamsa,
+              housesCached,
+              nakshatra,
+            } = docs[0];
             setBirthChart(birth);
             setNakshatra(nakshatra);
-            setHouses(houses);
+            setHouses(housesCached);
             setNavamsaChart(navamsa);
             setRashi(birth.meta.Mo.rashi);
             setLoading(false);
@@ -177,23 +174,13 @@ export default function ({navigation, route}) {
   }, [navigation]);
 
   useEffect(() => {
+    console.log(JSON.stringify(nakshatra, null, 4));
+    console.log(JSON.stringify(houses, null, 4));
     console.log(JSON.stringify(birthChart, null, 4));
   }, [birthChart, navamsaChart, houses, nakshatra]);
   return (
     <ScrollView>
       <Text style={styles.headings}>Birth Chart</Text>
-      {/* <ActivityIndicator
-        animating={true}
-        size="large"
-        style={{
-          position: 'absolute',
-          top: '50%',
-          left: '45%',
-          opacity: loading ? 1 : 0,
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      /> */}
       {loading && <Text style={styles.loading}>Calculating...</Text>}
       {!loading && ready && <ChartView birthChart={birthChart} />}
       <Text style={styles.headings}>Navamsa Chart</Text>
