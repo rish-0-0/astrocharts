@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
 import {
   ScrollView,
@@ -5,6 +6,7 @@ import {
   StyleSheet,
   Dimensions,
   TextInput,
+  Platform,
 } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Button from '../../components/PrimaryButton';
@@ -20,6 +22,8 @@ export default function (props) {
   const [date, setDate] = useState(new Date());
   const [latitude, setLatitude] = useState(String(0.0));
   const [longitude, setLongitude] = useState(String(0.0));
+  const [showIOSTime, setShowIOSTime] = useState(false);
+  const [showIOSDate, setShowIOSDate] = useState(false);
   const [timezone, setTimezone] = useState(
     String((0 - new Date().getTimezoneOffset()) / 60),
   );
@@ -43,9 +47,24 @@ export default function (props) {
         onPress={() => {
           setMode('date');
           setShow(true);
+          if (Platform.OS === 'ios') {
+            setShowIOSDate(true);
+          }
         }}
         title="Open Date Picker"
       />
+      {Platform.OS === 'ios' && showIOSDate && (
+        <DateTimePicker
+          mode="date"
+          value={date}
+          is24Hour={true}
+          display="spinner"
+          onChange={(ev, val) => {
+            setShowIOSTime(false);
+            setDate(val || new Date());
+          }}
+        />
+      )}
       <Text style={styles.labels}>Birth Time</Text>
       <Text style={{textAlign: 'center'}}>
         {date.getHours() < 10 ? `0${date.getHours()}` : date.getHours()}:
@@ -53,14 +72,38 @@ export default function (props) {
       </Text>
       <Button
         onPress={() => {
+          if (Platform.OS === 'ios') {
+            setShowIOSDate(false);
+          }
           setMode('time');
           setShow(true);
+          if (Platform.OS === 'ios') {
+            setShowIOSTime(true);
+          }
         }}
         title="Open Time Picker"
       />
+      {Platform.OS === 'ios' && showIOSTime && (
+        <DateTimePicker
+          mode="time"
+          value={date}
+          is24Hour={true}
+          display="spinner"
+          onChange={(ev, val) => {
+            setShowIOSDate(false);
+            setDate(val || new Date());
+          }}
+        />
+      )}
       <Text style={styles.labels}>Location Details</Text>
       <Button
         onPress={async () => {
+          if (Platform.OS === 'ios') {
+            setShowIOSDate(false);
+            setShowIOSTime(false);
+          } else {
+            setShow(false);
+          }
           try {
             await requestPermissionLocation((val) => {
               getCurrentLocation(val, getSuccessfulCoords, getFailureCoords);
@@ -80,7 +123,17 @@ export default function (props) {
       </Text>
       <TextInput
         keyboardType="decimal-pad"
-        onChangeText={(t) => setLatitude(t)}
+        onFocus={() => {
+          if (Platform.OS === 'ios') {
+            setShowIOSDate(false);
+            setShowIOSTime(false);
+          } else {
+            setShow(false);
+          }
+        }}
+        onChangeText={(t) => {
+          setLatitude(t);
+        }}
         maxLength={6}
         style={{textAlign: 'center'}}
         value={latitude}
@@ -94,7 +147,17 @@ export default function (props) {
       </Text>
       <TextInput
         keyboardType="decimal-pad"
-        onChangeText={(t) => setLongitude(t)}
+        onFocus={() => {
+          if (Platform.OS === 'ios') {
+            setShowIOSDate(false);
+            setShowIOSTime(false);
+          } else {
+            setShow(false);
+          }
+        }}
+        onChangeText={(t) => {
+          setLongitude(t);
+        }}
         maxLength={6}
         style={{textAlign: 'center'}}
         value={longitude}
@@ -105,7 +168,17 @@ export default function (props) {
       <Text style={styles.examples}>eg: -5 which implies GMT-5:00</Text>
       <TextInput
         keyboardType="decimal-pad"
-        onChangeText={(t) => setTimezone(t)}
+        onFocus={() => {
+          if (Platform.OS === 'ios') {
+            setShowIOSDate(false);
+            setShowIOSTime(false);
+          } else {
+            setShow(false);
+          }
+        }}
+        onChangeText={(t) => {
+          setTimezone(t);
+        }}
         maxLength={5}
         style={{textAlign: 'center'}}
         value={timezone}
@@ -138,7 +211,7 @@ export default function (props) {
         }
         title="Generate Charts!"
       />
-      {show && (
+      {Platform.OS === 'android' && show && (
         <DateTimePicker
           mode={mode}
           value={date}
