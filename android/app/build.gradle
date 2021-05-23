@@ -121,6 +121,12 @@ def jscFlavor = 'org.webkit:android-jsc:+'
  */
 def enableHermes = project.ext.react.get("enableHermes", false);
 
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('key.properties')
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
@@ -133,8 +139,8 @@ android {
         applicationId "com.astrocharts"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1"
     }
     splits {
         abi {
@@ -153,10 +159,10 @@ android {
         }
 
         release {
-          storeFile file(ASTROCHARTS_KEYSTORE_NAME)
-          storePassword ASTROCHARTS_KEYSTORE_PASSWORD
-          keyAlias ASTROCHARTS_KEY_ALIAS
-          keyPassword ASTROCHARTS_KEY_ALIAS_PASSWORD
+          keyAlias keystoreProperties['keyAlias']
+          keyPassword keystoreProperties['keyPassword']
+          storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+          storePassword keystoreProperties['storePassword']
         }
     }
     buildTypes {
