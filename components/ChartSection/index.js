@@ -5,7 +5,7 @@ export default function ({style, onPress, grahas, rashi, ...rest}) {
   return (
     <TouchableOpacity
       style={{...style, minHeight: rest.height || 80, ...styles.touchable}}
-      onPress={onPress}>
+      onPress={() => onPress({rashi, grahas})}>
       <View
         style={{...styles.container, backgroundColor: style.backgroundColor}}>
         <Text style={styles.label}>{rashi}</Text>

@@ -12,3 +12,16 @@ export const RASHIS = {
   Aq: 'aquarius',
   Pi: 'pisces',
 };
+
+export const PLANETS = {
+  Su: 'Sun',
+  Mo: 'Moon',
+  Me: 'Mercury',
+  Ve: 'Venus',
+  Ma: 'Mars',
+  Ju: 'Jupiter',
+  Sa: 'Saturn',
+  Ra: 'Rahu',
+  Ke: 'Ketu',
+  La: 'Ascendant',
+};

@@ -1,34 +1,38 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useEffect, useState} from 'react';
-import {ScrollView, Text, View, StyleSheet} from 'react-native';
+import {ScrollView, Text, View, StyleSheet, Modal, Button} from 'react-native';
 import db from '../../config/mongodb';
 import API from '../../config/axios';
 import ChartSection from '../../components/ChartSection';
 import {RASHIS} from '../../config/constants';
+import ModalSection from '../../components/ModalSection';
 
-function ChartView({birthChart}) {
+function ChartView({birthChart, onSignPress}) {
   return (
     <>
       <View style={styles.bcr}>
         <ChartSection
           grahas={birthChart.pisces.signs}
           rashi="Pisces"
-          onPress={() => {}}
+          onPress={onSignPress}
           style={{backgroundColor: 'turquoise', flex: 1}}
         />
         <ChartSection
           grahas={birthChart.aries.signs}
           rashi="Aries"
+          onPress={onSignPress}
           style={{backgroundColor: 'lightcoral', flex: 1}}
         />
         <ChartSection
           grahas={birthChart.taurus.signs}
           rashi="Taurus"
+          onPress={onSignPress}
           style={{backgroundColor: 'gold', flex: 1}}
         />
         <ChartSection
           grahas={birthChart.gemini.signs}
           rashi="Gemini"
+          onPress={onSignPress}
           style={{backgroundColor: 'yellow', flex: 1}}
         />
       </View>
@@ -36,6 +40,7 @@ function ChartView({birthChart}) {
         <ChartSection
           grahas={birthChart.aquarius.signs}
           rashi="Aquarius"
+          onPress={onSignPress}
           style={{backgroundColor: 'aqua', flex: 1}}
         />
         <View style={{flex: 2, minHeight: 80}}>
@@ -45,6 +50,7 @@ function ChartView({birthChart}) {
         <ChartSection
           grahas={birthChart.cancer.signs}
           rashi="Cancer"
+          onPress={onSignPress}
           style={{backgroundColor: 'lightgreen', flex: 1}}
         />
       </View>
@@ -52,6 +58,7 @@ function ChartView({birthChart}) {
         <ChartSection
           grahas={birthChart.capricorn.signs}
           rashi="Capricorn"
+          onPress={onSignPress}
           style={{backgroundColor: 'mediumslateblue', flex: 1}}
         />
         <View style={{flex: 2, minHeight: 80}}>
@@ -63,6 +70,7 @@ function ChartView({birthChart}) {
         <ChartSection
           grahas={birthChart.leo.signs}
           rashi="Leo"
+          onPress={onSignPress}
           style={{backgroundColor: 'coral', flex: 1}}
         />
       </View>
@@ -70,21 +78,25 @@ function ChartView({birthChart}) {
         <ChartSection
           grahas={birthChart.sagittarius.signs}
           rashi="Sagittarius"
+          onPress={onSignPress}
           style={{backgroundColor: 'orangered', flex: 1}}
         />
         <ChartSection
           grahas={birthChart.scorpio.signs}
           rashi="Scorpio"
+          onPress={onSignPress}
           style={{backgroundColor: 'greenyellow', flex: 1}}
         />
         <ChartSection
           grahas={birthChart.libra.signs}
           rashi="Libra"
+          onPress={onSignPress}
           style={{backgroundColor: 'lightskyblue', flex: 1}}
         />
         <ChartSection
           grahas={birthChart.virgo.signs}
           rashi="Virgo"
+          onPress={onSignPress}
           style={{backgroundColor: 'plum', flex: 1}}
         />
       </View>
@@ -102,6 +114,19 @@ export default function ({navigation, route}) {
   const [houses, setHouses] = useState(null);
   const [error, setError] = useState(null);
   const [ready, setReady] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalSignData, setModalSignData] = useState(null);
+
+  const onSignPress = (data) => {
+    setModalSignData(data);
+    setModalVisible(true);
+  };
+
+  const onModalRequestClose = () => {
+    setModalVisible(false);
+    setModalSignData(null);
+  };
+
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       setLoading(true);
@@ -172,6 +197,7 @@ export default function ({navigation, route}) {
     });
 
     return unsubscribe;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigation]);
 
   useEffect(() => {
@@ -179,19 +205,43 @@ export default function ({navigation, route}) {
     console.log(JSON.stringify(houses, null, 4));
     console.log(JSON.stringify(birthChart, null, 4));
   }, [birthChart, navamsaChart, houses, nakshatra]);
+
   return (
     <ScrollView>
+      <Modal
+        visible={modalVisible}
+        animationType="slide"
+        onRequestClose={onModalRequestClose}>
+        <View style={styles.centeredModal}>
+          <ModalSection
+            onClose={onModalRequestClose}
+            signData={modalSignData}
+          />
+        </View>
+      </Modal>
       <Text style={styles.headings}>Birth Chart</Text>
       {loading && <Text style={styles.loading}>Calculating...</Text>}
-      {!loading && ready && <ChartView birthChart={birthChart} />}
+      {!loading && ready && (
+        <ChartView birthChart={birthChart} onSignPress={onSignPress} />
+      )}
       <Text style={styles.headings}>Navamsa Chart</Text>
       {loading && <Text style={styles.loading}>Calculating...</Text>}
-      {!loading && ready && <ChartView birthChart={navamsaChart} />}
+      {!loading && ready && (
+        <ChartView birthChart={navamsaChart} onSignPress={onSignPress} />
+      )}
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  centeredModal: {
+    // maxHeight: 200,
+    // backgroundColor: 'lavender',
+    flex: 1,
+    justifyContent: 'center',
+    // opacity: 0.1,
+    alignItems: 'center',
+  },
   bcr: {
     display: 'flex',
     flexDirection: 'row',
