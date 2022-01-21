@@ -200,11 +200,11 @@ export default function ({navigation, route}) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigation]);
 
-  useEffect(() => {
-    console.log(JSON.stringify(nakshatra, null, 4));
-    console.log(JSON.stringify(houses, null, 4));
-    console.log(JSON.stringify(birthChart, null, 4));
-  }, [birthChart, navamsaChart, houses, nakshatra]);
+  // useEffect(() => {
+  //   console.log(JSON.stringify(nakshatra, null, 4));
+  //   console.log(JSON.stringify(houses, null, 4));
+  //   console.log(JSON.stringify(birthChart, null, 4));
+  // }, [birthChart, navamsaChart, houses, nakshatra]);
 
   return (
     <ScrollView>
