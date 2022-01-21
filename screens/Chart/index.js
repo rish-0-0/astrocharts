@@ -41,6 +41,11 @@ export default function (props) {
 
   return (
     <ScrollView style={styles.view}>
+      <Text
+        style={styles.savedCharts}
+        onPress={() => props.navigation.navigate('Saved Charts')}>
+        History
+      </Text>
       <Text style={styles.labels}>Birth Date</Text>
       <Text style={{textAlign: 'center'}}>{date.toDateString()}</Text>
       <Button
@@ -239,6 +244,13 @@ const styles = StyleSheet.create({
     fontSize: 24,
     lineHeight: 24,
     textTransform: 'uppercase',
+    letterSpacing: 3.5,
+  },
+  savedCharts: {
+    textAlign: 'right',
+    padding: 18,
+    fontSize: 24,
+    lineHeight: 24,
     letterSpacing: 3.5,
   },
   examples: {
