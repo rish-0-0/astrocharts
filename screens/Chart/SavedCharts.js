@@ -29,13 +29,18 @@ function SavedCharts({navigation}) {
     const {dateString, timeString, lat, lng, timezone} = item;
     return (
       <Text style={styles.itemContainer} onPress={() => goToCharts(item)}>
-        <Text style={styles.item}>{dateString}</Text>
         <Text style={styles.item}>
+          {dateString}
+          {'\n'}
+        </Text>
+        <Text style={styles.itemSub}>
           {timeString}
           {','} {timezone > 0 ? `+${timezone}` : `-${timezone}`}
+          {'\n'}
         </Text>
-        <Text style={styles.item}>
+        <Text style={styles.itemSub}>
           {lat}, {lng}
+          {'\n'}
         </Text>
       </Text>
     );
@@ -73,6 +78,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 18,
   },
   item: {
+    fontSize: 20,
+    paddingTop: 4,
+    textAlign: 'center',
+  },
+  itemSub: {
+    textAlign: 'center',
     fontSize: 16,
     paddingTop: 4,
   },
