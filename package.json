@@ -11,7 +11,6 @@
     "clean": "react-native-clean-project"
   },
   "dependencies": {
-    "@react-native-community/async-storage": "^1.12.1",
     "@react-native-community/datetimepicker": "^3.4.7",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-navigation/native": "^5.9.4",
