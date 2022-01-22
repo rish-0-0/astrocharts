@@ -43,7 +43,7 @@ export default function (props) {
     <ScrollView style={styles.view}>
       <Text
         style={styles.savedCharts}
-        onPress={() => props.navigation.navigate('Saved Charts')}>
+        onPress={() => props.navigation.navigate('History')}>
         History {'>'}
       </Text>
       <Text style={styles.labels}>Birth Date</Text>

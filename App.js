@@ -24,7 +24,7 @@ const App = () => {
         <Stack.Navigator>
           <Stack.Screen name="Birth Details" component={Chart} />
           <Stack.Screen name="Charts" component={ViewChart} />
-          <Stack.Screen name="Saved Charts" component={SavedCharts} />
+          <Stack.Screen name="History" component={SavedCharts} />
         </Stack.Navigator>
       </NavigationContainer>
     </>

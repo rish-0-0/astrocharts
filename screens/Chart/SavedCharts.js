@@ -85,7 +85,7 @@ function SavedCharts({navigation}) {
 
 const styles = StyleSheet.create({
   list: {
-    ...StyleSheet.absoluteFillObject,
+    // ...StyleSheet.absoluteFillObject,
   },
   errorText: {
     textAlign: 'center',
