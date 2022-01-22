@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Text,
   View,
+  SafeAreaView,
 } from 'react-native';
 
 function SavedCharts({navigation}) {
@@ -50,27 +51,35 @@ function SavedCharts({navigation}) {
   };
 
   if (error) {
-    return <Text style={styles.errorText}>{error}</Text>;
+    return (
+      <SafeAreaView>
+        <Text style={styles.errorText}>{error}</Text>
+      </SafeAreaView>
+    );
   }
 
   if (loading) {
     return (
-      <View style={styles.loadingView}>
-        <ActivityIndicator size="large" />
-      </View>
+      <SafeAreaView>
+        <View style={styles.loadingView}>
+          <ActivityIndicator size="large" />
+        </View>
+      </SafeAreaView>
     );
   }
 
   return (
-    <FlatList
-      data={charts}
-      renderItem={renderItem}
-      onRefresh={() => {
-        setShouldRefresh(!shouldRefresh);
-      }}
-      style={styles.list}
-      keyExtractor={(item) => item.timeString}
-    />
+    <SafeAreaView>
+      <FlatList
+        data={charts}
+        renderItem={renderItem}
+        onRefresh={() => {
+          setShouldRefresh(!shouldRefresh);
+        }}
+        style={styles.list}
+        keyExtractor={(item) => item.timeString}
+      />
+    </SafeAreaView>
   );
 }
 

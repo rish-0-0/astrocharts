@@ -44,7 +44,7 @@ export default function (props) {
       <Text
         style={styles.savedCharts}
         onPress={() => props.navigation.navigate('Saved Charts')}>
-        History
+        History {'>'}
       </Text>
       <Text style={styles.labels}>Birth Date</Text>
       <Text style={{textAlign: 'center'}}>{date.toDateString()}</Text>
@@ -248,10 +248,11 @@ const styles = StyleSheet.create({
   },
   savedCharts: {
     textAlign: 'right',
-    padding: 18,
-    fontSize: 24,
-    lineHeight: 24,
+    padding: 12,
+    fontSize: 18,
+    lineHeight: 18,
     letterSpacing: 3.5,
+    color: 'deepskyblue',
   },
   examples: {
     color: 'gray',
