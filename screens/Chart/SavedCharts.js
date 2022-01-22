@@ -54,23 +54,21 @@ function SavedCharts({navigation}) {
   return (
     <SafeAreaView>
       {error && <Text style={styles.errorText}>{error}</Text>}
-      {loading && (
-        <View style={styles.loadingView}>
-          <ActivityIndicator />
-        </View>
-      )}
       <FlatList
         data={charts}
         renderItem={renderItem}
         onRefresh={() => {
           setShouldRefresh(!shouldRefresh);
         }}
+        refreshing={loading}
         style={styles.list}
         keyExtractor={(item) => item.dateString}
       />
     </SafeAreaView>
   );
 }
+
+export default SavedCharts;
 
 const styles = StyleSheet.create({
   list: {
@@ -90,5 +88,3 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
 });
-
-export default SavedCharts;
