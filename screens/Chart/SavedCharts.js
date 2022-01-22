@@ -1,12 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {
-  ActivityIndicator,
-  FlatList,
-  StyleSheet,
-  Text,
-  View,
-  SafeAreaView,
-} from 'react-native';
+import {FlatList, StyleSheet, Text, SafeAreaView} from 'react-native';
 import db from '../../config/mongodb';
 
 function SavedCharts({navigation}) {
@@ -36,16 +29,13 @@ function SavedCharts({navigation}) {
     const {dateString, timeString, lat, lng, timezone} = item;
     return (
       <Text style={styles.itemContainer} onPress={() => goToCharts(item)}>
+        <Text style={styles.item}>{dateString}</Text>
         <Text style={styles.item}>
-          {dateString}
-          {'\n'}
           {timeString}
-          {'\t'}
-          {timezone}
-          {'\n'}
-          {lat}
-          {'\t'}
-          {lng}
+          {','} {timezone > 0 ? `+${timezone}` : `-${timezone}`}
+        </Text>
+        <Text style={styles.item}>
+          {lat}, {lng}
         </Text>
       </Text>
     );
@@ -79,12 +69,11 @@ const styles = StyleSheet.create({
     color: 'red',
   },
   itemContainer: {
-    marginVertical: 5,
+    marginBottom: 15,
+    paddingHorizontal: 18,
   },
-  item: {},
-  loadingView: {
-    flex: 1,
-    justifyContent: 'center',
-    flexDirection: 'row',
+  item: {
+    fontSize: 16,
+    paddingTop: 4,
   },
 });
