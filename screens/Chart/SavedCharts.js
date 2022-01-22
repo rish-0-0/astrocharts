@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import db from '../../config/mongodb';
 import {
   ActivityIndicator,
   FlatList,
@@ -8,6 +7,7 @@ import {
   View,
   SafeAreaView,
 } from 'react-native';
+import db from '../../config/mongodb';
 
 function SavedCharts({navigation}) {
   const [charts, setCharts] = useState([]);
@@ -25,6 +25,7 @@ function SavedCharts({navigation}) {
           return;
         }
         setCharts(docs);
+        setError(null);
       });
   }, [shouldRefresh]);
 
@@ -50,26 +51,14 @@ function SavedCharts({navigation}) {
     );
   };
 
-  if (error) {
-    return (
-      <SafeAreaView>
-        <Text style={styles.errorText}>{error}</Text>
-      </SafeAreaView>
-    );
-  }
-
-  if (loading) {
-    return (
-      <SafeAreaView>
-        <View style={styles.loadingView}>
-          <ActivityIndicator size="large" />
-        </View>
-      </SafeAreaView>
-    );
-  }
-
   return (
     <SafeAreaView>
+      {error && <Text style={styles.errorText}>{error}</Text>}
+      {loading && (
+        <View style={styles.loadingView}>
+          <ActivityIndicator />
+        </View>
+      )}
       <FlatList
         data={charts}
         renderItem={renderItem}
@@ -77,7 +66,7 @@ function SavedCharts({navigation}) {
           setShouldRefresh(!shouldRefresh);
         }}
         style={styles.list}
-        keyExtractor={(item) => item.timeString}
+        keyExtractor={(item) => item.dateString}
       />
     </SafeAreaView>
   );

@@ -1,20 +1,12 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
-import {
-  ScrollView,
-  Text,
-  StyleSheet,
-  Dimensions,
-  TextInput,
-  Platform,
-} from 'react-native';
+import {ScrollView, Text, StyleSheet, TextInput, Platform} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Button from '../../components/PrimaryButton';
 import {
   getCurrentLocation,
   requestPermissionLocation,
 } from '../../config/geolocation';
-const {width, height} = Dimensions.get('window');
 
 export default function (props) {
   const [show, setShow] = useState(false);

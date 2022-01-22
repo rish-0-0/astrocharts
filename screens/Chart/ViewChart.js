@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useEffect, useState} from 'react';
-import {ScrollView, Text, View, StyleSheet, Modal, Button} from 'react-native';
+import {ScrollView, Text, View, StyleSheet, Modal} from 'react-native';
 import db from '../../config/mongodb';
 import API from '../../config/axios';
 import ChartSection from '../../components/ChartSection';
