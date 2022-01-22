@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useEffect, useState} from 'react';
-import {ScrollView, Text, View, StyleSheet, Modal, Button} from 'react-native';
+import {ScrollView, Text, View, StyleSheet, Modal} from 'react-native';
 import db from '../../config/mongodb';
 import API from '../../config/axios';
 import ChartSection from '../../components/ChartSection';
@@ -200,11 +200,11 @@ export default function ({navigation, route}) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigation]);
 
-  useEffect(() => {
-    console.log(JSON.stringify(nakshatra, null, 4));
-    console.log(JSON.stringify(houses, null, 4));
-    console.log(JSON.stringify(birthChart, null, 4));
-  }, [birthChart, navamsaChart, houses, nakshatra]);
+  // useEffect(() => {
+  //   console.log(JSON.stringify(nakshatra, null, 4));
+  //   console.log(JSON.stringify(houses, null, 4));
+  //   console.log(JSON.stringify(birthChart, null, 4));
+  // }, [birthChart, navamsaChart, houses, nakshatra]);
 
   return (
     <ScrollView>

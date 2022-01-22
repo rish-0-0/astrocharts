@@ -1,20 +1,12 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
-import {
-  ScrollView,
-  Text,
-  StyleSheet,
-  Dimensions,
-  TextInput,
-  Platform,
-} from 'react-native';
+import {ScrollView, Text, StyleSheet, TextInput, Platform} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Button from '../../components/PrimaryButton';
 import {
   getCurrentLocation,
   requestPermissionLocation,
 } from '../../config/geolocation';
-const {width, height} = Dimensions.get('window');
 
 export default function (props) {
   const [show, setShow] = useState(false);
@@ -41,6 +33,11 @@ export default function (props) {
 
   return (
     <ScrollView style={styles.view}>
+      <Text
+        style={styles.savedCharts}
+        onPress={() => props.navigation.navigate('History')}>
+        History {'>'}
+      </Text>
       <Text style={styles.labels}>Birth Date</Text>
       <Text style={{textAlign: 'center'}}>{date.toDateString()}</Text>
       <Button
@@ -240,6 +237,14 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     textTransform: 'uppercase',
     letterSpacing: 3.5,
+  },
+  savedCharts: {
+    textAlign: 'right',
+    padding: 12,
+    fontSize: 18,
+    lineHeight: 18,
+    letterSpacing: 3.5,
+    color: 'deepskyblue',
   },
   examples: {
     color: 'gray',
